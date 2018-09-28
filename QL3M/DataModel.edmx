@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QL3MModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CusId" />
+          </Key>
+          <Property Name="CusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CusName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CusCompanyName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CusAddress" Type="nvarchar(max)" />
+          <Property Name="CusAddressOffice" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CusPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="CusTaxCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Seller" Type="bit" />
+          <Property Name="Buyer" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="GoodsInfo">
+          <Key>
+            <PropertyRef Name="GoodsId" />
+          </Key>
+          <Property Name="GoodsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsName" Type="nvarchar" MaxLength="200" />
+          <Property Name="GoodsModel" Type="nvarchar" MaxLength="200" />
+          <Property Name="GoodsDes" Type="nvarchar(max)" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="InUnitPrice" Type="float" />
+          <Property Name="OutUnitPrice" Type="float" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="CusId" Type="int" />
+          <Property Name="TypePay" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TotalPrice" Type="float" />
+          <Property Name="VAT" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="InvoiceDetails">
+          <Key>
+            <PropertyRef Name="InvoiceDetailsId" />
+          </Key>
+          <Property Name="InvoiceDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoodsId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="InvoiceFileAttach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="200" />
+          <Property Name="InvoiceId" Type="int" />
+          <Property Name="FileContent" Type="image" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="PrivateInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="AmountMoney" Type="float" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="PrivateVault">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="AllIn" Type="float" />
+          <Property Name="AllOut" Type="float" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="StoreDetails">
+          <Key>
+            <PropertyRef Name="StoreDetailsId" />
+          </Key>
+          <Property Name="StoreDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="GoodsId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="StoreInfo">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="200" />
+          <Property Name="StoreAddress" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserRealName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserKind" Type="nchar" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Invoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CusId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="CusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_InvoiceDetails">
+          <End Role="InvoiceDetails" Type="Self.InvoiceDetails" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceDetails">
+              <PropertyRef Name="InvoiceDetailsId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceDetails_GoodsInfo">
+          <End Role="GoodsInfo" Type="Self.GoodsInfo" Multiplicity="0..1" />
+          <End Role="InvoiceDetails" Type="Self.InvoiceDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsInfo">
+              <PropertyRef Name="GoodsId" />
+            </Principal>
+            <Dependent Role="InvoiceDetails">
+              <PropertyRef Name="GoodsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceFileAttach_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+          <End Role="InvoiceFileAttach" Type="Self.InvoiceFileAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="InvoiceId" />
+            </Principal>
+            <Dependent Role="InvoiceFileAttach">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateInvoice_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PrivateInvoice" Type="Self.PrivateInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PrivateInvoice">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreDetails_StoreInfo">
+          <End Role="StoreInfo" Type="Self.StoreInfo" Multiplicity="0..1" />
+          <End Role="StoreDetails" Type="Self.StoreDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreInfo">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="StoreDetails">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QL3MModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoodsInfo" EntityType="Self.GoodsInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceDetails" EntityType="Self.InvoiceDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceFileAttach" EntityType="Self.InvoiceFileAttach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateInvoice" EntityType="Self.PrivateInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateVault" EntityType="Self.PrivateVault" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreDetails" EntityType="Self.StoreDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreInfo" EntityType="Self.StoreInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_InvoiceDetails" Association="Self.FK_Invoice_InvoiceDetails">
+            <End Role="InvoiceDetails" EntitySet="InvoiceDetails" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_User" Association="Self.FK_Invoice_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceDetails_GoodsInfo" Association="Self.FK_InvoiceDetails_GoodsInfo">
+            <End Role="GoodsInfo" EntitySet="GoodsInfo" />
+            <End Role="InvoiceDetails" EntitySet="InvoiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceFileAttach_Invoice" Association="Self.FK_InvoiceFileAttach_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceFileAttach" EntitySet="InvoiceFileAttach" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateInvoice_User" Association="Self.FK_PrivateInvoice_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="PrivateInvoice" EntitySet="PrivateInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreDetails_StoreInfo" Association="Self.FK_StoreDetails_StoreInfo">
+            <End Role="StoreInfo" EntitySet="StoreInfo" />
+            <End Role="StoreDetails" EntitySet="StoreDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QL3MModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QL3MEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="QL3MModel.Customer" />
+          <EntitySet Name="GoodsInfoes" EntityType="QL3MModel.GoodsInfo" />
+          <EntitySet Name="Invoices" EntityType="QL3MModel.Invoice" />
+          <EntitySet Name="InvoiceDetails" EntityType="QL3MModel.InvoiceDetail" />
+          <EntitySet Name="InvoiceFileAttaches" EntityType="QL3MModel.InvoiceFileAttach" />
+          <EntitySet Name="PrivateInvoices" EntityType="QL3MModel.PrivateInvoice" />
+          <EntitySet Name="PrivateVaults" EntityType="QL3MModel.PrivateVault" />
+          <EntitySet Name="StoreDetails" EntityType="QL3MModel.StoreDetail" />
+          <EntitySet Name="StoreInfoes" EntityType="QL3MModel.StoreInfo" />
+          <EntitySet Name="Users" EntityType="QL3MModel.User" />
+          <AssociationSet Name="FK_Invoice_Customer" Association="QL3MModel.FK_Invoice_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceDetails_GoodsInfo" Association="QL3MModel.FK_InvoiceDetails_GoodsInfo">
+            <End Role="GoodsInfo" EntitySet="GoodsInfoes" />
+            <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_InvoiceDetails" Association="QL3MModel.FK_Invoice_InvoiceDetails">
+            <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_User" Association="QL3MModel.FK_Invoice_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceFileAttach_Invoice" Association="QL3MModel.FK_InvoiceFileAttach_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceFileAttach" EntitySet="InvoiceFileAttaches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrivateInvoice_User" Association="QL3MModel.FK_PrivateInvoice_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PrivateInvoice" EntitySet="PrivateInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreDetails_StoreInfo" Association="QL3MModel.FK_StoreDetails_StoreInfo">
+            <End Role="StoreInfo" EntitySet="StoreInfoes" />
+            <End Role="StoreDetail" EntitySet="StoreDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CusId" />
+          </Key>
+          <Property Name="CusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CusName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CusCompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CusAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CusAddressOffice" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CusPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CusTaxCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Seller" Type="Boolean" />
+          <Property Name="Buyer" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Invoices" Relationship="QL3MModel.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="GoodsInfo">
+          <Key>
+            <PropertyRef Name="GoodsId" />
+          </Key>
+          <Property Name="GoodsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsModel" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GoodsDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InUnitPrice" Type="Double" />
+          <Property Name="OutUnitPrice" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="InvoiceDetails" Relationship="QL3MModel.FK_InvoiceDetails_GoodsInfo" FromRole="GoodsInfo" ToRole="InvoiceDetail" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="CusId" Type="Int32" />
+          <Property Name="TypePay" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalPrice" Type="Double" />
+          <Property Name="VAT" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Customer" Relationship="QL3MModel.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
+          <NavigationProperty Name="InvoiceDetail" Relationship="QL3MModel.FK_Invoice_InvoiceDetails" FromRole="Invoice" ToRole="InvoiceDetail" />
+          <NavigationProperty Name="User" Relationship="QL3MModel.FK_Invoice_User" FromRole="Invoice" ToRole="User" />
+          <NavigationProperty Name="InvoiceFileAttaches" Relationship="QL3MModel.FK_InvoiceFileAttach_Invoice" FromRole="Invoice" ToRole="InvoiceFileAttach" />
+        </EntityType>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="InvoiceDetailsId" />
+          </Key>
+          <Property Name="InvoiceDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="GoodsInfo" Relationship="QL3MModel.FK_InvoiceDetails_GoodsInfo" FromRole="InvoiceDetail" ToRole="GoodsInfo" />
+          <NavigationProperty Name="Invoice" Relationship="QL3MModel.FK_Invoice_InvoiceDetails" FromRole="InvoiceDetail" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="InvoiceFileAttach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceId" Type="Int32" />
+          <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Invoice" Relationship="QL3MModel.FK_InvoiceFileAttach_Invoice" FromRole="InvoiceFileAttach" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="PrivateInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AmountMoney" Type="Double" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="QL3MModel.FK_PrivateInvoice_User" FromRole="PrivateInvoice" ToRole="User" />
+        </EntityType>
+        <EntityType Name="PrivateVault">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="AllIn" Type="Double" />
+          <Property Name="AllOut" Type="Double" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="StoreDetail">
+          <Key>
+            <PropertyRef Name="StoreDetailsId" />
+          </Key>
+          <Property Name="StoreDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="GoodsId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="StoreInfo" Relationship="QL3MModel.FK_StoreDetails_StoreInfo" FromRole="StoreDetail" ToRole="StoreInfo" />
+        </EntityType>
+        <EntityType Name="StoreInfo">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="StoreAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="StoreDetails" Relationship="QL3MModel.FK_StoreDetails_StoreInfo" FromRole="StoreInfo" ToRole="StoreDetail" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserRealName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserKind" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="Invoices" Relationship="QL3MModel.FK_Invoice_User" FromRole="User" ToRole="Invoice" />
+          <NavigationProperty Name="PrivateInvoices" Relationship="QL3MModel.FK_PrivateInvoice_User" FromRole="User" ToRole="PrivateInvoice" />
+        </EntityType>
+        <Association Name="FK_Invoice_Customer">
+          <End Type="QL3MModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="QL3MModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CusId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="CusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceDetails_GoodsInfo">
+          <End Type="QL3MModel.GoodsInfo" Role="GoodsInfo" Multiplicity="0..1" />
+          <End Type="QL3MModel.InvoiceDetail" Role="InvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsInfo">
+              <PropertyRef Name="GoodsId" />
+            </Principal>
+            <Dependent Role="InvoiceDetail">
+              <PropertyRef Name="GoodsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_InvoiceDetails">
+          <End Type="QL3MModel.InvoiceDetail" Role="InvoiceDetail" Multiplicity="1" />
+          <End Type="QL3MModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceDetail">
+              <PropertyRef Name="InvoiceDetailsId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_User">
+          <End Type="QL3MModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="QL3MModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceFileAttach_Invoice">
+          <End Type="QL3MModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+          <End Type="QL3MModel.InvoiceFileAttach" Role="InvoiceFileAttach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="InvoiceId" />
+            </Principal>
+            <Dependent Role="InvoiceFileAttach">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrivateInvoice_User">
+          <End Type="QL3MModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="QL3MModel.PrivateInvoice" Role="PrivateInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PrivateInvoice">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreDetails_StoreInfo">
+          <End Type="QL3MModel.StoreInfo" Role="StoreInfo" Multiplicity="0..1" />
+          <End Type="QL3MModel.StoreDetail" Role="StoreDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreInfo">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="StoreDetail">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QL3MModelStoreContainer" CdmEntityContainer="QL3MEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="QL3MModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Buyer" ColumnName="Buyer" />
+                <ScalarProperty Name="Seller" ColumnName="Seller" />
+                <ScalarProperty Name="CusTaxCode" ColumnName="CusTaxCode" />
+                <ScalarProperty Name="CusPhone" ColumnName="CusPhone" />
+                <ScalarProperty Name="CusAddressOffice" ColumnName="CusAddressOffice" />
+                <ScalarProperty Name="CusAddress" ColumnName="CusAddress" />
+                <ScalarProperty Name="CusCompanyName" ColumnName="CusCompanyName" />
+                <ScalarProperty Name="CusName" ColumnName="CusName" />
+                <ScalarProperty Name="CusId" ColumnName="CusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodsInfoes">
+            <EntityTypeMapping TypeName="QL3MModel.GoodsInfo">
+              <MappingFragment StoreEntitySet="GoodsInfo">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OutUnitPrice" ColumnName="OutUnitPrice" />
+                <ScalarProperty Name="InUnitPrice" ColumnName="InUnitPrice" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="GoodsDes" ColumnName="GoodsDes" />
+                <ScalarProperty Name="GoodsModel" ColumnName="GoodsModel" />
+                <ScalarProperty Name="GoodsName" ColumnName="GoodsName" />
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="QL3MModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="VAT" ColumnName="VAT" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="TypePay" ColumnName="TypePay" />
+                <ScalarProperty Name="CusId" ColumnName="CusId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceDetails">
+            <EntityTypeMapping TypeName="QL3MModel.InvoiceDetail">
+              <MappingFragment StoreEntitySet="InvoiceDetails">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+                <ScalarProperty Name="InvoiceDetailsId" ColumnName="InvoiceDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceFileAttaches">
+            <EntityTypeMapping TypeName="QL3MModel.InvoiceFileAttach">
+              <MappingFragment StoreEntitySet="InvoiceFileAttach">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivateInvoices">
+            <EntityTypeMapping TypeName="QL3MModel.PrivateInvoice">
+              <MappingFragment StoreEntitySet="PrivateInvoice">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AmountMoney" ColumnName="AmountMoney" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivateVaults">
+            <EntityTypeMapping TypeName="QL3MModel.PrivateVault">
+              <MappingFragment StoreEntitySet="PrivateVault">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AllOut" ColumnName="AllOut" />
+                <ScalarProperty Name="AllIn" ColumnName="AllIn" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoreDetails">
+            <EntityTypeMapping TypeName="QL3MModel.StoreDetail">
+              <MappingFragment StoreEntitySet="StoreDetails">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="StoreDetailsId" ColumnName="StoreDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoreInfoes">
+            <EntityTypeMapping TypeName="QL3MModel.StoreInfo">
+              <MappingFragment StoreEntitySet="StoreInfo">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="QL3MModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserKind" ColumnName="UserKind" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserRealName" ColumnName="UserRealName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
